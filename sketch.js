@@ -13,10 +13,13 @@ function preload() {
   song.rate(1);
 
   // change volume of song for larger/smaller expressed visuals
-  song.setVolume(1);
+  song.setVolume(0.6);
   
   // set background image - uncomment to 
   //backgroundImage = loadImage('space.jpg');
+
+  getPeaks(windowWidth);
+
 }
  
 function setup() {
@@ -34,6 +37,7 @@ function draw() {
   
   // wave colour
   stroke(255);
+  //stroke(57, 255, 20);
 
   noFill();
 
@@ -65,12 +69,12 @@ function draw() {
   }
 
   // middle ring
-  if (amp >= 200) {
+  if (amp >= 190) {
     for (var t = -1; t<= 1; t+= 2) {
       beginShape() 
       for (var i = 0; i <= 180; i+= 0.5) {
         var index = floor(map(i, 0, 180, 0, wave.length - 1));
-        var r = map(wave[index], -1, 1, 15, 350);
+        var r = map(wave[index], -1, 1, 150, 350);
         var x = r * sin(i) * t;
         var y = r * cos(i);
         vertex(x, y); 
@@ -80,12 +84,12 @@ function draw() {
   }
 
     // outmost ring
-    if (amp >= 230) {
+    if (amp >= 215) {
       for (var t = -1; t<= 1; t+= 2) {
         beginShape() 
         for (var i = 0; i <= 180; i+= 0.5) {
           var index = floor(map(i, 0, 180, 0, wave.length - 1));
-          var r = map(wave[index], -1, 1, 150, 350);
+          var r = map(wave[index], -1, 1, 300, 350);
           var x = r * sin(i) * t;
           var y = r * cos(i);
           vertex(x, y); 
