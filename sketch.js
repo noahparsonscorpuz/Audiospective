@@ -1,5 +1,8 @@
 // Audiospective by Noah Parsons Corpuz | January 2024
 
+// TODO:
+// add stereo / spacial visual response
+
 var song;
 var fft;
 var amp;
@@ -7,15 +10,15 @@ var backgroundImage = 0;
 
 function preload() {
   soundFormats('mp3', 'ogg');
-  song = loadSound('fazoland.mp3');
+  song = loadSound('ladies.mp3');
   
-  // change bpm of song for more/less frequently changing visuals
+  // EXPERIMENTAL: change bpm of song for more/less frequently changing visuals
   song.rate(1);
 
-  // change volume of song for larger/smaller expressed visuals
+  // EXPERIMENTAL: change volume of song for larger/smaller expressed visuals
   song.setVolume(1);
   
-  // set background image - uncomment to 
+  // set background image
   backgroundImage = loadImage('space.jpg');
 }
  
@@ -41,10 +44,17 @@ function draw() {
   // initialize analysis of fft
   fft.analyze();
 
+  // optional smoothing that serves valuable on different songs / genres
+  fft.smooth();
+
   // using getEnergy(x) - returning an 'energy rating' (intensity) of frequency 'x' being played
   ampLow = fft.getEnergy("bass");
   ampHigh = fft.getEnergy("treble");
   ampHighMid = fft.getEnergy("highMid");
+
+  // EXPERIMENTAL : possibility to implement response to active Octal Bands (refer to console array)
+  //oBandLow = fft.getOctaveBands(3, 10);
+  //console.log(oBandLow);
 
   // center the drawing
   translate(width / 2, height / 2);
